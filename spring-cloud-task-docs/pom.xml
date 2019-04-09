@@ -12,9 +12,17 @@
 	<name>Spring Cloud Task Docs</name>
 	<description>Spring Cloud Task Docs</description>
 	<properties>
+		<docs.main>spring-cloud-task</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>io.spring.docresources</groupId>
+			<artifactId>spring-doc-resources</artifactId>
+			<version>0.1.1.RELEASE</version>
+			<type>zip</type>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<profile>
@@ -22,16 +30,18 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>xml-maven-plugin</artifactId>
-						<version>1.0</version>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.0.1</version>
 						<executions>
 							<execution>
+								<id>attach-javadocs</id>
 								<goals>
-									<goal>transform</goal>
+									<goal>jar</goal>
 								</goals>
 							</execution>
 						</executions>
+<<<<<<< HEAD
 						<configuration>
 							<transformationSets>
 								<transformationSet>
@@ -51,28 +61,21 @@
 								</transformationSet>
 							</transformationSets>
 						</configuration>
+=======
+>>>>>>> Making an interim commit
 					</plugin>
 					<plugin>
-						<groupId>org.asciidoctor</groupId>
-						<artifactId>asciidoctor-maven-plugin</artifactId>
-						<version>1.5.2</version>
-						<dependencies>
-							<dependency>
-								<!-- Needed to resolve URI includes -->
-								<!-- See https://github.com/asciidoctor/asciidoctor.js/issues/153 -->
-								<groupId>org.jruby</groupId>
-								<artifactId>jruby-complete</artifactId>
-								<version>9.0.0.0</version>
-							</dependency>
-						</dependencies>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>generate-docbook</id>
-								<phase>generate-resources</phase>
+								<id>unpack-doc-resources</id>
 								<goals>
-									<goal>process-asciidoc</goal>
+									<goal>unpack-dependencies</goal>
 								</goals>
+								<phase>generate-resources</phase>
 								<configuration>
+<<<<<<< HEAD
 									<sourceDocumentName>index.adoc</sourceDocumentName>
 									<backend>docbook5</backend>
 									<doctype>book</doctype>
@@ -92,11 +95,19 @@
 										<allow-uri-read>true</allow-uri-read>
 										<github-tag>${github-tag}</github-tag>
 									</attributes>
+=======
+									<includeGroupIds>io.spring.docresources</includeGroupIds>
+									<includeArtifactIds>spring-doc-resources</includeArtifactIds>
+									<includeTypes>zip</includeTypes>
+									<excludeTransitive>true</excludeTransitive>
+									<outputDirectory>${project.build.directory}/refdocs/</outputDirectory>
+>>>>>>> Making an interim commit
 								</configuration>
 							</execution>
 						</executions>
 					</plugin>
 					<plugin>
+<<<<<<< HEAD
 						<groupId>com.agilejava.docbkx</groupId>
 						<artifactId>docbkx-maven-plugin</artifactId>
 						<version>2.0.15</version>
@@ -129,14 +140,19 @@
 								<scope>runtime</scope>
 							</dependency>
 						</dependencies>
+=======
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+>>>>>>> Making an interim commit
 						<executions>
 							<execution>
-								<id>html-single</id>
+								<id>copy-asciidoc-resources</id>
+								<phase>generate-resources</phase>
 								<goals>
-									<goal>generate-html</goal>
+									<goal>copy-resources</goal>
 								</goals>
-								<phase>prepare-package</phase>
 								<configuration>
+<<<<<<< HEAD
 									<htmlCustomization>
 										${basedir}/src/main/docbook/xsl/html-singlepage.xsl
 									</htmlCustomization>
@@ -161,14 +177,48 @@
 											</fileset>
 										</copy>
 									</postProcess>
+=======
+									<outputDirectory>${project.build.directory}/refdocs/</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/asciidoc</directory>
+											<filtering>false</filtering>
+										</resource>
+									</resources>
+>>>>>>> Making an interim commit
 								</configuration>
 							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.asciidoctor</groupId>
+						<artifactId>asciidoctor-maven-plugin</artifactId>
+						<version>${asciidoctor-maven-plugin.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.asciidoctor</groupId>
+								<artifactId>asciidoctorj-pdf</artifactId>
+								<version>${asciidoctorj-pdf.version}</version>
+							</dependency>
+						</dependencies>
+						<configuration>
+							<sourceDirectory>${project.build.directory}/refdocs/</sourceDirectory>
+							<sourceDocumentName>index.adoc</sourceDocumentName>
+							<doctype>book</doctype>
+							<attributes>
+								<allow-uri-read>true</allow-uri-read>
+								<attribute-missing>warn</attribute-missing>
+								<project-version>${project.version}</project-version>
+								<project-artifactId>${project.artifactId}</project-artifactId>
+								<version-type-lowercase>${version-type-lowercase}</version-type-lowercase>
+								<snippets>${basedir}/../spring-cloud-skipper-server-core/target/generated-snippets</snippets>
+							</attributes>
+						</configuration>
+						<executions>
 							<execution>
-								<id>html</id>
-								<goals>
-									<goal>generate-html</goal>
-								</goals>
+								<id>generate-html5</id>
 								<phase>prepare-package</phase>
+<<<<<<< HEAD
 								<configuration>
 									<htmlCustomization>
 										${basedir}/src/main/docbook/xsl/html-multipage.xsl
@@ -197,11 +247,13 @@
 							</execution>
 							<execution>
 								<id>pdf</id>
+=======
+>>>>>>> Making an interim commit
 								<goals>
-									<goal>generate-pdf</goal>
+									<goal>process-asciidoc</goal>
 								</goals>
-								<phase>prepare-package</phase>
 								<configuration>
+<<<<<<< HEAD
 									<foCustomization>
 										${basedir}/src/main/docbook/xsl/pdf.xsl
 									</foCustomization>
@@ -218,15 +270,31 @@
 											file="${basedir}/target/contents/reference/pdf/index.pdf"
 											tofile="${basedir}/target/contents/reference/pdf/spring-cloud-task-reference.pdf"/>
 									</postProcess>
+=======
+									<backend>html5</backend>
+									<sourceHighlighter>highlight.js</sourceHighlighter>
+									<attributes>
+										<sectanchors>true</sectanchors>
+										<sectnums></sectnums>
+										<docinfo>shared</docinfo>
+										<stylesdir>css/</stylesdir>
+										<stylesheet>spring.css</stylesheet>
+										<linkcss>true</linkcss>
+										<icons>font</icons>
+										<highlightjsdir>js/highlight</highlightjsdir>
+										<highlightjs-theme>atom-one-dark-reasonable</highlightjs-theme>
+									</attributes>
+>>>>>>> Making an interim commit
 								</configuration>
 							</execution>
 							<execution>
-								<id>epub</id>
+								<id>generate-pdf</id>
+								<phase>generate-resources</phase>
 								<goals>
-									<goal>generate-epub3</goal>
+									<goal>process-asciidoc</goal>
 								</goals>
-								<phase>prepare-package</phase>
 								<configuration>
+<<<<<<< HEAD
 									<epubCustomization>
 										${basedir}/src/main/docbook/xsl/epub.xsl
 									</epubCustomization>
@@ -243,6 +311,16 @@
 											file="${basedir}/target/contents/reference/epub/index.epub"
 											tofile="${basedir}/target/contents/reference/epub/spring-cloud-task-reference.epub"/>
 									</postProcess>
+=======
+									<backend>pdf</backend>
+									<sourceHighlighter>coderay</sourceHighlighter>
+									<attributes>
+										<icons>font</icons>
+										<sectnums></sectnums>
+										<pagenums/>
+										<toc/>
+									</attributes>
+>>>>>>> Making an interim commit
 								</configuration>
 							</execution>
 						</executions>
@@ -282,10 +360,22 @@
 								</goals>
 								<configuration>
 									<target>
+<<<<<<< HEAD
 										<zip
 											destfile="${project.build.directory}/${project.artifactId}-${project.version}.zip">
 											<fileset
 												dir="${project.build.directory}/contents"/>
+=======
+										<zip destfile="${project.build.directory}/${project.artifactId}-${project.version}.zip">
+											<!-- <zipfileset dir="${project.build.directory}/apidocs" prefix="api"/> -->
+											<zipfileset dir="${project.build.directory}/generated-docs" prefix="reference">
+												<include name="index.html" />
+												<include name="images/**" />
+												<include name="css/**" />
+												<include name="js/**" />
+												<include name="index.pdf" />
+											</zipfileset>
+>>>>>>> Making an interim commit
 										</zip>
 									</target>
 								</configuration>
@@ -341,6 +431,7 @@
 						</executions>
 					</plugin>
 					<plugin>
+<<<<<<< HEAD
 						<artifactId>maven-assembly-plugin</artifactId>
 						<executions>
 							<execution>
@@ -361,6 +452,8 @@
 						</executions>
 					</plugin>
 					<plugin>
+=======
+>>>>>>> Making an interim commit
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>build-helper-maven-plugin</artifactId>
 						<executions>
