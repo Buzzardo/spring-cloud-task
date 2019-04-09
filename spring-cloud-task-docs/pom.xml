@@ -41,28 +41,6 @@
 								</goals>
 							</execution>
 						</executions>
-<<<<<<< HEAD
-						<configuration>
-							<transformationSets>
-								<transformationSet>
-									<dir>${project.build.directory}/external-resources
-									</dir>
-									<stylesheet>src/main/xslt/dependencyVersions.xsl
-									</stylesheet>
-									<fileMappers>
-										<fileMapper
-											implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-											<targetExtension>.adoc</targetExtension>
-										</fileMapper>
-									</fileMappers>
-									<outputDir>
-										${project.build.directory}/generated-resources
-									</outputDir>
-								</transformationSet>
-							</transformationSets>
-						</configuration>
-=======
->>>>>>> Making an interim commit
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -75,75 +53,18 @@
 								</goals>
 								<phase>generate-resources</phase>
 								<configuration>
-<<<<<<< HEAD
-									<sourceDocumentName>index.adoc</sourceDocumentName>
-									<backend>docbook5</backend>
-									<doctype>book</doctype>
-									<attributes>
-										<docinfo>true</docinfo>
-										<spring-boot-version>${project.version}
-										</spring-boot-version>
-										<spring-boot-docs-version>${project.version}
-										</spring-boot-docs-version>
-										<spring-boot-repo>${spring-boot-repo}
-										</spring-boot-repo>
-										<spring-docs-version>${spring.version}
-										</spring-docs-version>
-										<spring-security-docs-version>
-											${spring-security.version}
-										</spring-security-docs-version>
-										<allow-uri-read>true</allow-uri-read>
-										<github-tag>${github-tag}</github-tag>
-									</attributes>
-=======
 									<includeGroupIds>io.spring.docresources</includeGroupIds>
 									<includeArtifactIds>spring-doc-resources</includeArtifactIds>
 									<includeTypes>zip</includeTypes>
 									<excludeTransitive>true</excludeTransitive>
 									<outputDirectory>${project.build.directory}/refdocs/</outputDirectory>
->>>>>>> Making an interim commit
 								</configuration>
 							</execution>
 						</executions>
 					</plugin>
 					<plugin>
-<<<<<<< HEAD
-						<groupId>com.agilejava.docbkx</groupId>
-						<artifactId>docbkx-maven-plugin</artifactId>
-						<version>2.0.15</version>
-						<configuration>
-							<sourceDirectory>${basedir}/target/generated-docs
-							</sourceDirectory>
-							<includes>index.xml</includes>
-							<xincludeSupported>true</xincludeSupported>
-							<chunkedOutput>false</chunkedOutput>
-							<foCustomization>${basedir}/src/main/docbook/xsl/pdf.xsl
-							</foCustomization>
-							<useExtensions>1</useExtensions>
-							<highlightSource>1</highlightSource>
-							<highlightXslthlConfig>
-								${basedir}/src/main/docbook/xsl/xslthl-config.xml
-							</highlightXslthlConfig>
-						</configuration>
-						<dependencies>
-							<dependency>
-								<groupId>net.sf.xslthl</groupId>
-								<artifactId>xslthl</artifactId>
-								<version>2.1.0</version>
-							</dependency>
-							<dependency>
-								<groupId>net.sf.docbook</groupId>
-								<artifactId>docbook-xml</artifactId>
-								<version>5.0-all</version>
-								<classifier>resources</classifier>
-								<type>zip</type>
-								<scope>runtime</scope>
-							</dependency>
-						</dependencies>
-=======
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-resources-plugin</artifactId>
->>>>>>> Making an interim commit
 						<executions>
 							<execution>
 								<id>copy-asciidoc-resources</id>
@@ -152,32 +73,6 @@
 									<goal>copy-resources</goal>
 								</goals>
 								<configuration>
-<<<<<<< HEAD
-									<htmlCustomization>
-										${basedir}/src/main/docbook/xsl/html-singlepage.xsl
-									</htmlCustomization>
-									<targetDirectory>
-										${basedir}/target/docbook/htmlsingle
-									</targetDirectory>
-									<postProcess>
-										<copy
-											todir="${basedir}/target/contents/reference/htmlsingle">
-											<fileset
-												dir="${basedir}/target/docbook/htmlsingle">
-												<include name="**/*.html"/>
-											</fileset>
-										</copy>
-										<copy
-											todir="${basedir}/target/contents/reference/htmlsingle">
-											<fileset dir="${basedir}/src/main/docbook">
-												<include name="**/*.css"/>
-												<include name="**/*.png"/>
-												<include name="**/*.gif"/>
-												<include name="**/*.jpg"/>
-											</fileset>
-										</copy>
-									</postProcess>
-=======
 									<outputDirectory>${project.build.directory}/refdocs/</outputDirectory>
 									<resources>
 										<resource>
@@ -185,7 +80,6 @@
 											<filtering>false</filtering>
 										</resource>
 									</resources>
->>>>>>> Making an interim commit
 								</configuration>
 							</execution>
 						</executions>
@@ -218,59 +112,10 @@
 							<execution>
 								<id>generate-html5</id>
 								<phase>prepare-package</phase>
-<<<<<<< HEAD
-								<configuration>
-									<htmlCustomization>
-										${basedir}/src/main/docbook/xsl/html-multipage.xsl
-									</htmlCustomization>
-									<targetDirectory>${basedir}/target/docbook/html
-									</targetDirectory>
-									<chunkedOutput>true</chunkedOutput>
-									<postProcess>
-										<copy
-											todir="${basedir}/target/contents/reference/html">
-											<fileset dir="${basedir}/target/docbook/html">
-												<include name="**/*.html"/>
-											</fileset>
-										</copy>
-										<copy
-											todir="${basedir}/target/contents/reference/html">
-											<fileset dir="${basedir}/src/main/docbook">
-												<include name="**/*.css"/>
-												<include name="**/*.png"/>
-												<include name="**/*.gif"/>
-												<include name="**/*.jpg"/>
-											</fileset>
-										</copy>
-									</postProcess>
-								</configuration>
-							</execution>
-							<execution>
-								<id>pdf</id>
-=======
->>>>>>> Making an interim commit
 								<goals>
 									<goal>process-asciidoc</goal>
 								</goals>
 								<configuration>
-<<<<<<< HEAD
-									<foCustomization>
-										${basedir}/src/main/docbook/xsl/pdf.xsl
-									</foCustomization>
-									<targetDirectory>${basedir}/target/docbook/pdf
-									</targetDirectory>
-									<postProcess>
-										<copy
-											todir="${basedir}/target/contents/reference">
-											<fileset dir="${basedir}/target/docbook">
-												<include name="**/*.pdf"/>
-											</fileset>
-										</copy>
-										<move
-											file="${basedir}/target/contents/reference/pdf/index.pdf"
-											tofile="${basedir}/target/contents/reference/pdf/spring-cloud-task-reference.pdf"/>
-									</postProcess>
-=======
 									<backend>html5</backend>
 									<sourceHighlighter>highlight.js</sourceHighlighter>
 									<attributes>
@@ -284,7 +129,6 @@
 										<highlightjsdir>js/highlight</highlightjsdir>
 										<highlightjs-theme>atom-one-dark-reasonable</highlightjs-theme>
 									</attributes>
->>>>>>> Making an interim commit
 								</configuration>
 							</execution>
 							<execution>
@@ -294,24 +138,6 @@
 									<goal>process-asciidoc</goal>
 								</goals>
 								<configuration>
-<<<<<<< HEAD
-									<epubCustomization>
-										${basedir}/src/main/docbook/xsl/epub.xsl
-									</epubCustomization>
-									<targetDirectory>${basedir}/target/docbook/epub
-									</targetDirectory>
-									<postProcess>
-										<copy
-											todir="${basedir}/target/contents/reference/epub">
-											<fileset dir="${basedir}/target/docbook">
-												<include name="**/*.epub"/>
-											</fileset>
-										</copy>
-										<move
-											file="${basedir}/target/contents/reference/epub/index.epub"
-											tofile="${basedir}/target/contents/reference/epub/spring-cloud-task-reference.epub"/>
-									</postProcess>
-=======
 									<backend>pdf</backend>
 									<sourceHighlighter>coderay</sourceHighlighter>
 									<attributes>
@@ -320,7 +146,6 @@
 										<pagenums/>
 										<toc/>
 									</attributes>
->>>>>>> Making an interim commit
 								</configuration>
 							</execution>
 						</executions>
@@ -360,12 +185,6 @@
 								</goals>
 								<configuration>
 									<target>
-<<<<<<< HEAD
-										<zip
-											destfile="${project.build.directory}/${project.artifactId}-${project.version}.zip">
-											<fileset
-												dir="${project.build.directory}/contents"/>
-=======
 										<zip destfile="${project.build.directory}/${project.artifactId}-${project.version}.zip">
 											<!-- <zipfileset dir="${project.build.directory}/apidocs" prefix="api"/> -->
 											<zipfileset dir="${project.build.directory}/generated-docs" prefix="reference">
@@ -375,7 +194,6 @@
 												<include name="js/**" />
 												<include name="index.pdf" />
 											</zipfileset>
->>>>>>> Making an interim commit
 										</zip>
 									</target>
 								</configuration>
@@ -431,29 +249,6 @@
 						</executions>
 					</plugin>
 					<plugin>
-<<<<<<< HEAD
-						<artifactId>maven-assembly-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>docs-assembly</id>
-								<phase>package</phase>
-								<configuration>
-									<appendAssemblyId>false</appendAssemblyId>
-									<descriptors>
-										<descriptor>src/main/assembly/assemble.xml
-										</descriptor>
-									</descriptors>
-									<attach>false</attach>
-								</configuration>
-								<goals>
-									<goal>single</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-=======
->>>>>>> Making an interim commit
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>build-helper-maven-plugin</artifactId>
 						<executions>
