@@ -107,7 +107,7 @@ map uncaught exceptions to exit codes. Doing so lets you indicate, at the level 
 codes, what went wrong. Also, by mapping exit codes in this manner, Spring Cloud Task
 records the returned exit code.
 
-If the task terminates with a SIG-INT or a SIG-TERM, the exit code is zero unless
+If the task ends with a SIG-INT or a SIG-TERM, the exit code is zero unless
 otherwise specified within the code.
 
 NOTE: While the task is running, the exit code is stored as a null in the repository.
@@ -407,9 +407,8 @@ completion of a task (all `*Runner#run` methods have been called and the task
 repository has been updated), set the property `spring.cloud.task.closecontextEnabled`
 to `true`.
 
-Another case to close the context is when the Task Execution completes however the application does not terminate.
+Another case to close the context is when the Task Execution completes but the application does not end.
 In these cases the context is held open because a thread has been allocated
 (for example: if you are using a TaskExecutor). In these cases
 set the `spring.cloud.task.closecontextEnabled` property to `true` when launching your task.
-This will close the application's context once the task is complete.
-Thus allowing the application to terminate.
+This closes the application's context once the task is complete, thus allowing the application to end.
